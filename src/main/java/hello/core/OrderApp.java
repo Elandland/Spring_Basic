@@ -11,15 +11,18 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
 
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+        //MemberService memberService = new MemberServiceImpl();
+        //OrderService orderService = new OrderServiceImpl();
 
         Long memberId = 1L;
         Member member = new Member(memberId,"chansol", Grade.VIP);
 
         memberService.join(member);
 
-        Order order = orderService.createOrder(memberId,"과자",10000);
+        Order order = orderService.createOrder(memberId,"snack",10000);
 
         System.out.println("oredr = "+ order);
 

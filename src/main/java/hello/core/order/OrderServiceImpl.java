@@ -9,11 +9,17 @@ import hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private DiscountPolicy discountPolicy;
+
+
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
     //private final DiscountPolicy discountPolicy = new FixDicountPolicy();             //추상(인터페이스)에도 의존하고 구체(클래스)에도 의존하기 때문에 DIP위반
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();             //이 때문에 fixDis~ 에서 RateDis~로 바꿀때 OCP위반 (직접적 코드 변경)
 
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
